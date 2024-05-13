@@ -9,9 +9,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float moveSpeed = 10f;
 
     Vector2 playerInput;
+    Vector2 minBounds;
+    Vector2 maxBounds;
+
     void Start()
     {
-
+        minBounds = Camera.main.ViewportToWorldPoint(new Vector2(0,0));
+        maxBounds = Camera.main.ViewportToWorldPoint(new Vector2(1,1));
     }
 
     void Update()
@@ -26,8 +30,11 @@ public class PlayerMovement : MonoBehaviour
 
     void MovePlayer()
     {
+        float yPadding = transform.localScale.y / 2;
         Vector2 playerDir = playerInput * moveSpeed * Time.deltaTime;
-        Vector2 newPos = new Vector2(transform.position.x, transform.position.y + playerDir.y);
+        Vector2 newPos = new Vector2();
+        newPos.y = Mathf.Clamp(transform.position.y + playerDir.y, minBounds.y + yPadding, maxBounds.y - yPadding);
+        newPos.x = transform.position.x;
         transform.position = newPos;
     }
 }
