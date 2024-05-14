@@ -49,5 +49,8 @@ public class BallMovement : MonoBehaviour
         rb.velocity = velocity - 2 * Vector2.Dot(velocity, normal) * normal;
     }
 
+    public Transform GetBallPosition()
+    {
+        return rb.transform;
+    }
 }
-// finally....
