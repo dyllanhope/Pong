@@ -967,6 +967,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0de08166c17df784c8c1db786ab9735e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 5
+  boundary: {fileID: 1684387074}
 --- !u!1 &1869167799
 GameObject:
   m_ObjectHideFlags: 0
@@ -1128,7 +1130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a76bbc3964c2944b80cecb3c79eb9a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
+  moveSpeed: 5
   coneAngle: 90
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
