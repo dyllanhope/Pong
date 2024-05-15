@@ -37,22 +37,11 @@ public class EnemyMovement : MonoBehaviour
         float targetPointY = ballTransform.position.y;
         Vector2 targetPosition = new Vector2(transform.position.x, targetPointY);
 
-        // Calculate the maximum distance the object can move this frame based on speed limit
-        float maxDistance = moveSpeed * Time.deltaTime;
-
-        // Calculate the direction towards the target position
-        Vector2 direction = (targetPosition - (Vector2)transform.position).normalized;
-
-        // Calculate the new target position limited by the maximum distance
-        Vector2 newTargetPos = (Vector2)transform.position + direction * Mathf.Min(maxDistance, Vector2.Distance(transform.position, targetPosition));
-
-        // Clamp the y position within the bounds
+        //Vector2 playerDir = playerInput * moveSpeed * Time.deltaTime;
+        Vector2 newTargetPos = Vector2.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
         Vector2 newPos = new Vector2();
         newPos.y = Mathf.Clamp(newTargetPos.y, minBounds.y + yPadding, maxBounds.y - yPadding);
         newPos.x = transform.position.x;
-
-        // Move the object to the new position
         transform.position = newPos;
     }
-
 }
