@@ -44,4 +44,9 @@ public class EnemyMovement : MonoBehaviour
         newPos.x = transform.position.x;
         transform.position = newPos;
     }
+
+    public void FetchNewBallInstance()
+    {
+        ballMovement = FindObjectOfType<BallMovement>();
+    }
 }
