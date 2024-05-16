@@ -12,13 +12,25 @@ public class ScoreManager : MonoBehaviour
     private int playerScore = 0;
     private int opponentScore = 0;
     private bool isGameOver = false;
-    private int winnerIndex = 0; //0 is player, 1 is opponent
+    private bool hasWon = false; //0 is player, 1 is opponent
     private GameObject ballInstance;
 
     EnemyMovement enemyMovement;
 
+    static ScoreManager instance;
+
     private void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            gameObject.SetActive(false);
+            Destroy(gameObject);
+        }
         ballInstance = Instantiate(ballPrefab, Vector2.zero, Quaternion.identity);
         enemyMovement = FindObjectOfType<EnemyMovement>();
     }
@@ -37,7 +49,7 @@ public class ScoreManager : MonoBehaviour
         if (playerScore >= maxScore)
         {
             isGameOver = true;
-            winnerIndex = 0;
+            hasWon = true;
         }
         else
         {
@@ -50,7 +62,7 @@ public class ScoreManager : MonoBehaviour
         if (opponentScore >= maxScore)
         {
             isGameOver = true;
-            winnerIndex = 1;
+            hasWon = false;
         }
         else
         {
@@ -61,9 +73,9 @@ public class ScoreManager : MonoBehaviour
     {
         return isGameOver;
     }
-    public int getWinner()
+    public bool getWinState()
     {
-        return winnerIndex;
+        return hasWon;
     }
     private IEnumerator StartNewRound()
     {
