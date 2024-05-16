@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
@@ -7,6 +8,8 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] int maxScore = 7;
 
     [SerializeField] GameObject ballPrefab;
+
+    [SerializeField] TextMeshProUGUI playerScoreText;
 
     private int playerScore = 0;
     private int opponentScore = 0;
