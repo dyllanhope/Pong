@@ -169,6 +169,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxScore: 7
   ballPrefab: {fileID: 512599865518411969, guid: 4fc8060ff9900964c99b4234fca526fd, type: 3}
+  playerScoreText: {fileID: 737037035}
+  opponentScoreText: {fileID: 1269312417}
 --- !u!1 &174591871
 GameObject:
   m_ObjectHideFlags: 0
@@ -570,8 +572,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.79166675}
   m_AnchorMax: {x: 1, y: 0.98700005}
-  m_AnchoredPosition: {x: -448, y: 0}
-  m_SizeDelta: {x: -1720, y: 0}
+  m_AnchoredPosition: {x: -444, y: 0}
+  m_SizeDelta: {x: -1712, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &737037035
 MonoBehaviour:
@@ -1447,7 +1449,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!50 &1687180591
 Rigidbody2D:
   serializedVersion: 4
@@ -1744,7 +1746,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1715c1530a1c25240a3b8c793b3dc37a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlayerScored: 0
+  isPlayerScored: 1
   scoreIncrement: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

@@ -9,7 +9,9 @@ public class ScoreManager : MonoBehaviour
 
     [SerializeField] GameObject ballPrefab;
 
+    [Header("UI")]
     [SerializeField] TextMeshProUGUI playerScoreText;
+    [SerializeField] TextMeshProUGUI opponentScoreText;
 
     private int playerScore = 0;
     private int opponentScore = 0;
@@ -36,6 +38,7 @@ public class ScoreManager : MonoBehaviour
     public void increasePlayerScore(int score)
     {
         playerScore += score;
+        UpdateUIScore(playerScoreText, playerScore);
         if (playerScore >= maxScore)
         {
             isGameOver = true;
@@ -49,6 +52,7 @@ public class ScoreManager : MonoBehaviour
     public void increaseOpponentScore(int score)
     {
         opponentScore += score;
+        UpdateUIScore(opponentScoreText, opponentScore);
         if (opponentScore >= maxScore)
         {
             isGameOver = true;
@@ -75,4 +79,8 @@ public class ScoreManager : MonoBehaviour
         enemyMovement.FetchNewBallInstance();
     }
 
+    private void UpdateUIScore(TextMeshProUGUI scoreText, int score)
+    {
+        scoreText.text = score.ToString();
+    }
 }
