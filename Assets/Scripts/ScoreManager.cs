@@ -9,40 +9,47 @@ public class ScoreManager : MonoBehaviour
 
     [SerializeField] GameObject ballPrefab;
 
-    [Header("UI")]
-    [SerializeField] TextMeshProUGUI playerScoreText;
-    [SerializeField] TextMeshProUGUI opponentScoreText;
-
     private int playerScore = 0;
     private int opponentScore = 0;
     private bool isGameOver = false;
-    private int winnerIndex = 0; //0 is player, 1 is opponent
+    private bool hasWon = false; //0 is player, 1 is opponent
     private GameObject ballInstance;
 
     EnemyMovement enemyMovement;
 
+    static ScoreManager instance;
+
     private void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            gameObject.SetActive(false);
+            Destroy(gameObject);
+        }
         ballInstance = Instantiate(ballPrefab, Vector2.zero, Quaternion.identity);
         enemyMovement = FindObjectOfType<EnemyMovement>();
     }
 
-    public int getPlayerScore()
+    public string getPlayerScore()
     {
-        return playerScore;
+        return playerScore.ToString();
     }
-    public int getOpponentScore()
+    public string getOpponentScore()
     {
-        return opponentScore;
+        return opponentScore.ToString();
     }
     public void increasePlayerScore(int score)
     {
         playerScore += score;
-        UpdateUIScore(playerScoreText, playerScore);
         if (playerScore >= maxScore)
         {
             isGameOver = true;
-            winnerIndex = 0;
+            hasWon = true;
         }
         else
         {
@@ -52,11 +59,10 @@ public class ScoreManager : MonoBehaviour
     public void increaseOpponentScore(int score)
     {
         opponentScore += score;
-        UpdateUIScore(opponentScoreText, opponentScore);
         if (opponentScore >= maxScore)
         {
             isGameOver = true;
-            winnerIndex = 1;
+            hasWon = false;
         }
         else
         {
@@ -67,9 +73,9 @@ public class ScoreManager : MonoBehaviour
     {
         return isGameOver;
     }
-    public int getWinner()
+    public bool getWinState()
     {
-        return winnerIndex;
+        return hasWon;
     }
     private IEnumerator StartNewRound()
     {
@@ -77,10 +83,5 @@ public class ScoreManager : MonoBehaviour
         Destroy(ballInstance.gameObject);
         ballInstance = Instantiate(ballPrefab, Vector2.zero, Quaternion.identity);
         enemyMovement.FetchNewBallInstance();
-    }
-
-    private void UpdateUIScore(TextMeshProUGUI scoreText, int score)
-    {
-        scoreText.text = score.ToString();
     }
 }
