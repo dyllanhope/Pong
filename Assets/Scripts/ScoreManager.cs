@@ -7,15 +7,10 @@ public class ScoreManager : MonoBehaviour
 {
     [SerializeField] int maxScore = 7;
 
-    [SerializeField] GameObject ballPrefab;
-
     private int playerScore = 0;
     private int opponentScore = 0;
     private bool isGameOver = false;
-    private bool hasWon = false; //0 is player, 1 is opponent
-    private GameObject ballInstance;
-
-    EnemyMovement enemyMovement;
+    private bool hasWon = false;
 
     static ScoreManager instance;
 
@@ -31,8 +26,6 @@ public class ScoreManager : MonoBehaviour
             gameObject.SetActive(false);
             Destroy(gameObject);
         }
-        ballInstance = Instantiate(ballPrefab, Vector2.zero, Quaternion.identity);
-        enemyMovement = FindObjectOfType<EnemyMovement>();
     }
 
     public string getPlayerScore()
@@ -51,10 +44,6 @@ public class ScoreManager : MonoBehaviour
             isGameOver = true;
             hasWon = true;
         }
-        else
-        {
-            StartCoroutine(StartNewRound());
-        }
     }
     public void increaseOpponentScore(int score)
     {
@@ -63,10 +52,6 @@ public class ScoreManager : MonoBehaviour
         {
             isGameOver = true;
             hasWon = false;
-        }
-        else
-        {
-            StartCoroutine(StartNewRound());
         }
     }
     public bool GetGameState()
@@ -77,11 +62,11 @@ public class ScoreManager : MonoBehaviour
     {
         return hasWon;
     }
-    private IEnumerator StartNewRound()
+    public void ClearAndRestart()
     {
-        yield return new WaitForSeconds(1);
-        Destroy(ballInstance.gameObject);
-        ballInstance = Instantiate(ballPrefab, Vector2.zero, Quaternion.identity);
-        enemyMovement.FetchNewBallInstance();
+        playerScore = 0;
+        opponentScore = 0;
+        isGameOver = false;
+        hasWon = false;
     }
 }
