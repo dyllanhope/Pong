@@ -9,13 +9,16 @@ public class ScorePoint : MonoBehaviour
 
     ScoreManager scoreManager;
     GameManager gameManager;
+    AudioManager audioManager;
     private void Awake()
     {
         scoreManager = FindObjectOfType<ScoreManager>();
         gameManager = FindObjectOfType<GameManager>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        audioManager.PlayMissClip();
         if (!isPlayerScored)
         {
             scoreManager.increaseOpponentScore(scoreIncrement);

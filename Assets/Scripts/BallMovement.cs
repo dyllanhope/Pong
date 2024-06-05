@@ -8,11 +8,14 @@ public class BallMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 2f;
     [SerializeField] private float coneAngle = 90f;
     Rigidbody2D rb;
+
+    AudioManager audioManager;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         // Set the initial velocity to move in a random direction within the cone
         rb.velocity = GetRandomDirectionInCone() * moveSpeed;
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     private void FixedUpdate()
@@ -41,6 +44,8 @@ public class BallMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        audioManager.PlayHitClip();
+
         // Get the collision normal
         Vector2 normal = collision.GetContact(0).normal;
 
